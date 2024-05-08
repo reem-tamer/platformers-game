@@ -1,1 +1,2 @@
 #game file!
+print("hello")
