@@ -17,7 +17,7 @@ def main(window):
     run= True
     while run:
         clock.tick(FPS)
-
+        window.fill((0,0,0))
 
 
         for event in pygame.event.get():
@@ -26,4 +26,4 @@ def main(window):
 
         pygame.display.update()
     pygame.quit()
-    #asfdadfas
+
