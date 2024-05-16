@@ -16,14 +16,16 @@ def main(window):
     clock=pygame.time.Clock()
     run= True
     while run:
-        clock.tick(FPS)
+
         window.fill((0,0,0))
 
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
+                exit()
 
         pygame.display.update()
-    pygame.quit()
+        clock.tick(FPS)
+
 
