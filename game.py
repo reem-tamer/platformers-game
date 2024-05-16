@@ -5,8 +5,8 @@ import os
 
 pygame.init()
 pygame.display.set_caption("Kings and Pigs")
-screen_width= 1000
-screen_hight=1000
+screen_width= 800
+screen_hight= 640
 window= pygame.display.set_mode((screen_width,screen_hight))
 
 FPS= 60
