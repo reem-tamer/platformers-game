@@ -12,20 +12,20 @@ window= pygame.display.set_mode((screen_width,screen_hight))
 FPS= 60
 king_velocity= 5
 
-def main(window):
-    clock=pygame.time.Clock()
-    run= True
-    while run:
+#def main(window):
+clock=pygame.time.Clock()
+run= True
+while run:
+    clock.tick(FPS)
+    window.fill((0,0,0))
 
-        window.fill((0,0,0))
 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+    pygame.display.update()
+pygame.quit()
 
-        pygame.display.update()
-        clock.tick(FPS)
 
 
