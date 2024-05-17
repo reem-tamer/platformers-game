@@ -19,13 +19,30 @@ king_velocity= 5
 background= pygame.image.load("background.png")
 bar=pygame.image.load("bar.png")
 
-class Bar(pygame.sprite.Sprite):
-    def __init__(self,x,y):
+
+
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, x, y, image_file):
         super().__init__()
-        self.image = pygame.image.load("bar.png")
+        self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.topleft = (x, y)
+
+# Create platforms
+platforms = pygame.sprite.Group()
+platforms.add(Platform(400, 320, 'bar.png'))
+platforms.add(Platform(250, 380, 'bar.png'))
+platforms.add(Platform(100, 300, 'bar.png'))
+platforms.add(Platform(570, 185, 'bar.png'))
+platforms.add(Platform(570, 280, 'bar.png'))
+platforms.add(Platform(400, 230, 'bar.png'))
+
+
+
+
+
+
+
 #def main(window):
 clock=pygame.time.Clock()
 run= True
@@ -35,12 +52,9 @@ while run:
     clock.tick(FPS)
     window.fill((0,0,0))
     window.blit(background,(0,0))
-    window.blit(bar,(400,320))  #1
-    window.blit(bar,(250,380))  #2
-    window.blit(bar, (100, 300)) #3
-    window.blit(bar, (570, 185)) #4
-    window.blit(bar, (570, 280)) #5
-    window.blit(bar, (400, 230)) #6
+
+
+    platforms.draw(window)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -48,6 +62,9 @@ while run:
 
     pygame.display.update()
 pygame.quit()
+
+
+
 
 
 
