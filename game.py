@@ -5,6 +5,7 @@ import csv
 
 
 
+
 from sys import exit
 pygame.init()
 pygame.display.set_caption("Kings and Pigs")
@@ -57,62 +58,62 @@ class Player(pygame.sprite.Sprite):
         # function parameters include platform
         # so we can later on check for collisions with the bars
 
-        def update(self, platforms):
-            keys = pygame.key.get_pressed()
-            self.running = False
+    def update(self, platforms):
+        keys = pygame.key.get_pressed()
+        self.running = False
 
-            if keys[pygame.K_LEFT] == True:
-                self.rect.x -= king_velocity
-                self.running = True
-            if keys[pygame.K_RIGHT] == True:
-                self.rect.x += king_velocity
-                self.running = True
+        if keys[pygame.K_LEFT] == True and self.rect.x - king_velocity >= 100:
+            self.rect.x -= king_velocity
+            self.running = True
+        if keys[pygame.K_RIGHT] == True and king_velocity + self.rect.x <= 650:
+            self.rect.x += king_velocity
+            self.running = True
 
            # relation with past code and uploaded images
             # to change king state when he runs,jumps,falls
-            if self.jumping == True:
-                self.image = jump_img
-            elif self.falling == True:
-                self.image = fall_img
-            elif self.running == True:
-                self.image = run_img
-            else:
-                self.image = idle_img
+        if self.jumping == True:
+            self.image = jump_img
+        elif self.falling == True:
+            self.image = fall_img
+        elif self.running == True:
+            self.image = run_img
+        else:
+            self.image = idle_img
 
 
-            #gravity
-            self.vel_y += gravity  # we add the variable gravity(0.6)
-            # to the vertical position of the king
-            # in order for it to return to the ground
-            self.rect.y += self.vel_y
+        #gravity
+        self.vel_y += gravity  # we add the variable gravity(0.6)
+         # to the vertical position of the king
+         # in order for it to return to the ground
+        self.rect.y += self.vel_y
 
             #check if the king is in falling state or on ground
-            self.on_ground = False
-            self.falling = True
+        self.on_ground = False
+        self.falling = True
 
-            for platform in platforms:
-                if self.rect.colliderect(platform.rect):
-                    if self.vel_y > 0:  # Falling down because when vel of y increase
-                        # king gets closer to the ground
-                        self.rect.bottom = platform.rect.top #if king is falling
-                        # stop the fall and collide with platform
-                        self.vel_y = 0
-                        self.on_ground = True
-                        self.falling = False
-                    elif self.vel_y < 0:  # vel<0 means king is jumping
-                        # so if the top of the king rect comes in contact with the bar bottom
-                        # return the king to the platform bottom
-                        self.rect.top = platform.rect.bottom
-                        self.vel_y = 0
+        for platform in platforms:
+            if self.rect.colliderect(platform.rect):
+                if self.vel_y > 0:  # Falling down because when vel of y increase
+                     # king gets closer to the ground
+                    self.rect.bottom = platform.rect.top #if king is falling
+                    # stop the fall and collide with platform
+                    self.vel_y = 0
+                    self.on_ground = True
+                    self.falling = False
+                elif self.vel_y < 0:  # vel<0 means king is jumping
+                     # so if the top of the king rect comes in contact with the bar bottom
+                    # return the king to the platform bottom
+                    self.rect.top = platform.rect.bottom
+                    self.vel_y = 0
 
-                    # Jump
-                if keys[pygame.K_UP] and self.on_ground:
-                    self.vel_y = jump_strength
-                    self.jumping = True
-                else:
-                    self.jumping = False
+        # Jump
+        if keys[pygame.K_UP] and self.on_ground:
+            self.vel_y = jump_strength
+            self.jumping = True
+        else:
+            self.jumping = False
 
-king= Player(100,screen_hight-100)
+king= Player(100,320)
 
 # Create platforms using sprite groups, putting each bar in its position
 platforms = pygame.sprite.Group()
@@ -126,6 +127,8 @@ platforms.add(Platform(400, 230, 'bar.png'))
 all_sprites = pygame.sprite.Group()
 all_sprites.add(king)
 all_sprites.add(*platforms)
+
+
 
 
 #main game loop
