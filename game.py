@@ -20,12 +20,12 @@ jump_strength= -12
 
 
 #setting the images
-background= pygame.image.load("background.png")
-bar=pygame.image.load("bar.png")
-run_img = pygame.image.load('Run.png')
-jump_img = pygame.image.load('Jump (78x58).png')
-idle_img = pygame.image.load('Idle.png')
-fall_img = pygame.image.load('Fall (78x58).png')
+background= pygame.image.load("background.png").convert_alpha()
+bar=pygame.image.load("bar.png").convert_alpha()
+run_img = pygame.image.load('Run.png').convert_alpha()
+jump_img = pygame.image.load('Jump (78x58).png').convert_alpha()
+idle_img = pygame.image.load('Idle2.png').convert_alpha()
+fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 
 
 #create platform bars main class
@@ -107,7 +107,7 @@ class Player(pygame.sprite.Sprite):
                     self.vel_y = 0
 
         # Jump
-        if keys[pygame.K_UP] and self.on_ground:
+        if keys[pygame.K_UP] and self.on_ground and self.rect.y + king_velocity >= 140:
             self.vel_y = jump_strength
             self.jumping = True
         else:
@@ -120,9 +120,9 @@ platforms = pygame.sprite.Group()
 platforms.add(Platform(400, 320, 'bar.png'))
 platforms.add(Platform(250, 380, 'bar.png'))
 platforms.add(Platform(100, 300, 'bar.png'))
-platforms.add(Platform(570, 185, 'bar.png'))
+platforms.add(Platform(570, 160, 'bar.png'))
 platforms.add(Platform(570, 280, 'bar.png'))
-platforms.add(Platform(400, 230, 'bar.png'))
+platforms.add(Platform(400, 210, 'bar.png'))
 #variable called all sprites and add to it the king and all the platforms
 all_sprites = pygame.sprite.Group()
 all_sprites.add(king)
@@ -149,6 +149,7 @@ while run:
 
     # Draw all sprites
     all_sprites.draw(window)
+    pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
     # Refresh display
     pygame.display.flip()
