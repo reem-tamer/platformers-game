@@ -18,6 +18,7 @@ king_velocity= 5
 gravity= 0.6
 jump_strength= -12
 ground= screen_hight-140
+score=0
 
 
 #setting the images
@@ -62,12 +63,13 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.falling = False
         self.direction = 1
+        self.score=0
 
         #update keys to move the king,
         # function parameters include platform
         # so we can later on check for collisions with the bars
 
-    def update(self, platforms):
+    def update(self, platforms , diamonds):
         keys = pygame.key.get_pressed()
         self.running = False
 
@@ -142,6 +144,18 @@ class Player(pygame.sprite.Sprite):
                 self.jumping = True
             else:
                 self.jumping = False
+    # collision with diamonds
+        for diamond in diamonds:
+            if self.rect.colliderect(diamond.rect):
+                self.score += 1
+                diamond.kill()
+
+class Diamond(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = diamond_img
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
 
 
 king= Player(100,320)
@@ -158,7 +172,7 @@ class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
         self.direction = 1  #pig moves right and left
         self.speed = 1.5
 
-    def update(self, platform):
+    def update(self, platform , diamond):
         self.rect.x += self.direction * self.speed
         # Reverse direction if the player hits the screen edges
         if self.rect.right >= screen_width-80 or self.rect.left <=80:#if the right side of the pig hits the screen width-80
@@ -168,6 +182,7 @@ class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
 
 pig = pig(200,510)
 
+diamond= Diamond(100,200)
 
 
 # Create platforms using sprite groups, putting each bar in its position
@@ -184,7 +199,14 @@ all_sprites.add(king)
 all_sprites.add(pig)
 all_sprites.add(*platforms)
 
-#h
+# Creating the diamonds for the king to catch
+diamonds = pygame.sprite.Group()
+diamonds.add(Diamond(450, 310)) #on bar1
+diamonds.add(Diamond(300, 410))# on bar2
+diamonds.add(Diamond(600, 500)) # on floor
+diamonds.add(Diamond(600, 240))
+diamonds.add(Diamond(200, 500))# on floor
+all_sprites.add(*diamonds)
 
 
 #main game loop
@@ -199,7 +221,7 @@ while run:
     window.blit(background,(0,0))
 
     # Update sprites
-    all_sprites.update(platforms)
+    all_sprites.update(platforms,diamonds)
 
 
 
