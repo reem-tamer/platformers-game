@@ -60,7 +60,7 @@ class Player(pygame.sprite.Sprite):
         self.running = False
         self.jumping = False
         self.falling = False
-        self.direction=1
+        self.direction = 1
 
         #update keys to move the king,
         # function parameters include platform
@@ -171,12 +171,12 @@ pig = pig(200,510)
 
 # Create platforms using sprite groups, putting each bar in its position
 platforms = pygame.sprite.Group()
-platforms.add(Platform(400, 320, 'bar.png'))
+platforms.add(Platform(400, 340, 'bar.png')) #1
 platforms.add(Platform(250, 440, 'bar.png')) #2 lowest bar
-platforms.add(Platform(100, 300, 'bar.png'))
-platforms.add(Platform(570, 160, 'bar.png'))
-platforms.add(Platform(570, 280, 'bar.png'))
-platforms.add(Platform(400, 210, 'bar.png'))
+platforms.add(Platform(100, 350, 'bar.png')) #3
+# platforms.add(Platform(570, 160, 'bar.png'))
+platforms.add(Platform(570, 270, 'bar.png')) #5
+platforms.add(Platform(400, 180, 'bar.png')) #6
 #variable called all sprites and add to it the king and all the platforms
 all_sprites = pygame.sprite.Group()
 all_sprites.add(king)
@@ -205,6 +205,7 @@ while run:
     # Draw all sprites
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
+
 
     # Refresh display
     pygame.display.flip()
