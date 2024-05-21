@@ -140,6 +140,7 @@ class Player(pygame.sprite.Sprite):
                 self.jumping = True
             else:
                 self.jumping = False
+                #h
 
 king= Player(100,320)
 
