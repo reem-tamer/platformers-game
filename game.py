@@ -19,7 +19,7 @@ gravity= 0.6
 jump_strength= -12
 ground= screen_hight-140
 score=0
-#reeeeeeeeeeem
+
 
 #setting the images
 background= pygame.image.load("background.png").convert_alpha()
@@ -31,7 +31,7 @@ fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 pig_idle= pygame.image.load('Idle_pig.png').convert_alpha()
 diamond_img= pygame.image.load("diamond.png").convert_alpha()
 
-#hellooo noooraaaa
+
 #create platform bars main class
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, image_file):
