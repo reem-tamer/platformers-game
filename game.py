@@ -121,7 +121,7 @@ class Player(pygame.sprite.Sprite):
                     self.vel_y = 0
 
         # Jump
-        if keys[pygame.K_UP] and self.on_ground and self.rect.y + king_velocity >= 140:
+        if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
             self.vel_y = jump_strength
             self.jumping = True
         else:
@@ -134,7 +134,7 @@ class Player(pygame.sprite.Sprite):
             self.vel_y = 0
             self.on_ground = True
             self.falling = False
-            if keys[pygame.K_UP] and self.on_ground and self.rect.y + king_velocity >= 140:
+            if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
                 self.vel_y = jump_strength
                 self.jumping = True
             else:
@@ -236,7 +236,6 @@ while run:
     window.blit(score_text, (550, 50))
 
 
-#2
 
 
 
