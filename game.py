@@ -19,6 +19,7 @@ gravity= 0.6
 jump_strength= -12
 ground= screen_hight-140
 score=0
+score_font= pygame.font.Font('Pixeltype.ttf',50)
 
 
 #setting the images
@@ -238,8 +239,8 @@ while run:
     # since it is a function related to sprite groups
     # platforms.draw(window)
 
-
-
+    score_text = score_font.render("Diamonds: " + str(score), False, 'white')
+    window.blit(score_text, (550, 50))
 
 
 
