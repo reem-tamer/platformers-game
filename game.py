@@ -19,7 +19,7 @@ gravity= 0.6
 jump_strength= -12
 ground= screen_hight-140
 score=0
-
+#reeeeeeeeeeem
 
 #setting the images
 background= pygame.image.load("background.png").convert_alpha()
