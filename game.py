@@ -236,7 +236,7 @@ while run:
     window.blit(score_text, (550, 50))
 
 
-
+#2
 
 
 
