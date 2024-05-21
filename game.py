@@ -23,7 +23,7 @@ jump_strength= -12
 background= pygame.image.load("background.png").convert_alpha()
 bar=pygame.image.load("bar.png").convert_alpha()
 run_img = pygame.image.load('Run.png').convert_alpha()
-jump_img = pygame.image.load('Jump (78x58).png').convert_alpha()
+jump_img = pygame.image.load('Jump.png').convert_alpha()
 idle_img = pygame.image.load('Idle2.png').convert_alpha()
 fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 
