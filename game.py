@@ -149,17 +149,19 @@ class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
     def __init__(self, x, y):
         super().__init__()
         self.image= pig_idle
-        self.height= 50
-        self.width= 80
-        self.rect= self.image.get_rect()
+        self.height= 80
+        self.width= 50
+        self.pig_size= pygame.transform.scale(self.image,(self.height,self.width))
+        self.rect= self.pig_size.get_rect()
         self.rect.topleft = (x, y)
         self.direction = 1  #pig moves right and left
-        self.speed = 3
+        self.speed = 1.5
 
     def update(self, platform):
         self.rect.x += self.direction * self.speed
         # Reverse direction if the player hits the screen edges
-        if self.rect.right >= screen_width or self.rect.left <=0:#if theriht side of han the screen width## or the left side of the pig is more than zero(axis) dont let it pass this boubndary
+        if self.rect.right >= screen_width-80 or self.rect.left <=80:#if the right side of the pig hits the screen width-80
+            # or the left side of the pig is more than 80(axis) dont let it pass this boubndary
             self.direction *= -1 # if the above condition is correct move in the opposite direction
 
 
@@ -170,7 +172,7 @@ pig = pig(200,510)
 # Create platforms using sprite groups, putting each bar in its position
 platforms = pygame.sprite.Group()
 platforms.add(Platform(400, 320, 'bar.png'))
-platforms.add(Platform(250, 380, 'bar.png'))
+platforms.add(Platform(250, 440, 'bar.png')) #2 lowest bar
 platforms.add(Platform(100, 300, 'bar.png'))
 platforms.add(Platform(570, 160, 'bar.png'))
 platforms.add(Platform(570, 280, 'bar.png'))
