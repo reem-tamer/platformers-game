@@ -29,8 +29,9 @@ run_img = pygame.image.load('Run.png').convert_alpha()
 jump_img = pygame.image.load('Jump.png').convert_alpha()
 idle_img = pygame.image.load('Idle2.png').convert_alpha()
 fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
-pig_idle= pygame.image.load('Idle_pig.png').convert_alpha()
-diamond_img= pygame.image.load("diamond.png").convert_alpha()
+pig_idle = pygame.image.load('Idle_pig.png').convert_alpha()
+pig_run = pygame.image.load("Run (34x28).png").convert_alpha()
+diamond_img = pygame.image.load("diamond.png").convert_alpha()
 #3arosetna el amora
 
 
@@ -155,17 +156,49 @@ class Diamond(pygame.sprite.Sprite):
 
 king= Player(100,320,)
 
-class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
-    def __init__(self, x, y):
+# class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
+#     def __init__(self, x, y,width,height):
+#         super().__init__()
+#         self.image= pig_run
+#         self.running_image = pygame.transform.scale(pig_run, (width, height))
+#         self.rect= self.running_image.get_rect()
+#         self.rect.topleft = (x, y)
+#         self.direction = 1  #pig moves right and left
+#         self.speed = 1.5
+#         self.run= False
+
+class Pig(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, spritesheet, num_frames):
         super().__init__()
-        self.image= pig_idle
-        self.height= 80
-        self.width= 50
-        self.pig_size= pygame.transform.scale(self.image,(self.height,self.width))
-        self.rect= self.pig_size.get_rect()
+        self.frames = self.load_frames(spritesheet, width, height, num_frames)
+        self.current_frame = 0
+        self.image = self.frames[self.current_frame]
+        self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-        self.direction = 1  #pig moves right and left
+        self.direction = 1  # Pig moves right and left
         self.speed = 1.5
+        self.animation_speed = 0.1  # Controls the speed of animation
+        self.frame_index = 0
+
+    def load_frames(self, spritesheet, width, height, num_frames):
+        frames = []
+        for i in range(num_frames):
+            frame = spritesheet.subsurface((i * width, 0, width, height))
+            frame = pygame.transform.scale(frame, (width, height))
+            frames.append(frame)
+        return frames
+
+    def update(self, platforms, diamonds):
+        self.rect.x += self.direction * self.speed
+        # Reverse direction if the pig hits the screen edges
+        if self.rect.right >= screen_width - 80 or self.rect.left <= 80:
+            self.direction *= -1
+
+        # Update animation frame
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(self.frames):
+            self.frame_index = 0
+        self.image = self.frames[int(self.frame_index)]
 
     def update(self, platform , diamond):
         self.rect.x += self.direction * self.speed
@@ -175,7 +208,12 @@ class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
             self.direction *= -1 # if the above condition is correct move in the opposite direction
 
 
-pig = pig(200,510)
+# Create pig
+pig_width = 100
+pig_height = 100
+num_frames = 6  # Number of frames in the spritesheet
+pig = Pig(200, 510, pig_width, pig_height, pig_run, num_frames)  # Creating a pig instance
+
 
 diamond= Diamond(100,200)
 
@@ -233,7 +271,7 @@ while run:
     # platforms.draw(window)
 
     score_text = score_font.render(f"Diamonds: {king.score}", False, 'white')
-    window.blit(score_text, (550, 50))
+    window.blit(score_text, (550, 110))
 
 
 
