@@ -17,6 +17,7 @@ FPS= 60
 king_velocity= 5
 gravity= 0.6
 jump_strength= -12
+ground= screen_hight-140
 
 
 #setting the images
@@ -46,9 +47,11 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.width = 71
-        self.hieght = 54
+        self.height = 54
+
         self.image = idle_img
-        self.rect = self.image.get_rect() #transform image in the line before
+        self.king_size=pygame.transform.scale(self.image,(self.width,self.height))
+        self.rect = self.king_size.get_rect() #transform image in the line before
                                             #to rect
         self.rect.topleft = (x, y)
         self.vel_y = 0
@@ -56,6 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.running = False
         self.jumping = False
         self.falling = False
+        self.direction=1
 
         #update keys to move the king,
         # function parameters include platform
@@ -72,6 +76,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += king_velocity
             self.running = True
 
+
            # relation with past code and uploaded images
             # to change king state when he runs,jumps,falls
         if self.jumping == True:
@@ -83,8 +88,15 @@ class Player(pygame.sprite.Sprite):
         else:
             self.image = idle_img
 
+        # # floor boundary so king doesnt fall
+        #
+        # if self.rect.y >= ground:
+        #     self.rect.y = ground
+        #     self.vel_y = 0
+        #     self.on_ground = True
+        #     self.falling = False
 
-        #gravity
+            #gravity
         self.vel_y += gravity  # we add the variable gravity(0.6)
          # to the vertical position of the king
          # in order for it to return to the ground
@@ -115,6 +127,19 @@ class Player(pygame.sprite.Sprite):
             self.jumping = True
         else:
             self.jumping = False
+
+            # floor boundary so king doesnt fall
+
+        if self.rect.y >= ground:
+            self.rect.y = ground
+            self.vel_y = 0
+            self.on_ground = True
+            self.falling = False
+            if keys[pygame.K_UP] and self.on_ground and self.rect.y + king_velocity >= 140:
+                self.vel_y = jump_strength
+                self.jumping = True
+            else:
+                self.jumping = False
 
 king= Player(100,320)
 
