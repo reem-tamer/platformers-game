@@ -38,12 +38,15 @@ class Platform(pygame.sprite.Sprite):
 
 
 
+
 # creating main player class
 #under the assumption of idle initial position
 # other positions will be updated later
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
+        self.width = 71
+        self.hieght = 54
         self.image = idle_img
         self.rect = self.image.get_rect() #transform image in the line before
                                             #to rect
