@@ -27,6 +27,7 @@ run_img = pygame.image.load('Run.png').convert_alpha()
 jump_img = pygame.image.load('Jump.png').convert_alpha()
 idle_img = pygame.image.load('Idle2.png').convert_alpha()
 fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
+pig_idle= pygame.image.load('Idle_pig.png').convert_alpha()
 
 
 #create platform bars main class
@@ -144,6 +145,28 @@ class Player(pygame.sprite.Sprite):
 
 king= Player(100,320)
 
+class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
+    def __init__(self, x, y):
+        super().__init__()
+        self.image= pig_idle
+        self.height= 50
+        self.width= 80
+        self.rect= self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.direction = 1  #pig moves right and left
+        self.speed = 3
+
+    def update(self, platform):
+        self.rect.x += self.direction * self.speed
+        # Reverse direction if the player hits the screen edges
+        if self.rect.right >= screen_width or self.rect.left <=0:#if theriht side of han the screen width## or the left side of the pig is more than zero(axis) dont let it pass this boubndary
+            self.direction *= -1 # if the above condition is correct move in the opposite direction
+
+
+pig = pig(200,510)
+
+
+
 # Create platforms using sprite groups, putting each bar in its position
 platforms = pygame.sprite.Group()
 platforms.add(Platform(400, 320, 'bar.png'))
@@ -155,6 +178,7 @@ platforms.add(Platform(400, 210, 'bar.png'))
 #variable called all sprites and add to it the king and all the platforms
 all_sprites = pygame.sprite.Group()
 all_sprites.add(king)
+all_sprites.add(pig)
 all_sprites.add(*platforms)
 
 
