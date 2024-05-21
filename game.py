@@ -18,7 +18,7 @@ king_velocity= 5
 gravity= 0.6
 jump_strength= -12
 ground= screen_hight-140
-score=0
+
 score_font= pygame.font.Font('Pixeltype.ttf',50)
 
 
@@ -47,7 +47,7 @@ class Platform(pygame.sprite.Sprite):
 
 # creating main player class
 #under the assumption of idle initial position
-# other positions will be updated later
+# other pos itions will be updated later
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -65,7 +65,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.falling = False
         self.direction = 1
-        self.score=0
+        self.score = 0
 
         #update keys to move the king,
         # function parameters include platform
@@ -94,13 +94,6 @@ class Player(pygame.sprite.Sprite):
         else:
             self.image = idle_img
 
-        # # floor boundary so king doesnt fall
-        #
-        # if self.rect.y >= ground:
-        #     self.rect.y = ground
-        #     self.vel_y = 0
-        #     self.on_ground = True
-        #     self.falling = False
 
             #gravity
         self.vel_y += gravity  # we add the variable gravity(0.6)
@@ -160,7 +153,7 @@ class Diamond(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
 
-king= Player(100,320)
+king= Player(100,320,)
 
 class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
     def __init__(self, x, y):
@@ -239,7 +232,7 @@ while run:
     # since it is a function related to sprite groups
     # platforms.draw(window)
 
-    score_text = score_font.render("Diamonds: " + str(score), False, 'white')
+    score_text = score_font.render(f"Diamonds: {king.score}", False, 'white')
     window.blit(score_text, (550, 50))
 
 
