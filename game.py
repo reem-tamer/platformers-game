@@ -200,12 +200,6 @@ class Pig(pygame.sprite.Sprite):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]
 
-    def update(self, platform , diamond):
-        self.rect.x += self.direction * self.speed
-        # Reverse direction if the player hits the screen edges
-        if self.rect.right >= screen_width-80 or self.rect.left <=80:#if the right side of the pig hits the screen width-80
-            # or the left side of the pig is more than 80(axis) dont let it pass this boubndary
-            self.direction *= -1 # if the above condition is correct move in the opposite direction
 
 
 # Create pig
