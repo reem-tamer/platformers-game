@@ -28,6 +28,7 @@ jump_img = pygame.image.load('Jump.png').convert_alpha()
 idle_img = pygame.image.load('Idle2.png').convert_alpha()
 fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 pig_idle= pygame.image.load('Idle_pig.png').convert_alpha()
+diamond_img= pygame.image.load("diamond.png").convert_alpha()
 
 
 #create platform bars main class
