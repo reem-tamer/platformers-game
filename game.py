@@ -35,6 +35,7 @@ pig_run = pygame.image.load("Run (34x28).png").convert_alpha()
 diamond_img = pygame.image.load("diamond.png").convert_alpha()
 close= pygame.image.load("closed_door.png").convert_alpha()
 opening= pygame.image.load("opening_door.png").convert_alpha()
+heart= pygame.image.load("heart.png").convert_alpha()
 
 #3arosetna el amora
 
@@ -71,6 +72,9 @@ class Player(pygame.sprite.Sprite):
         self.falling = False
         self.direction = 1
         self.score = 0
+        self.lives= 3
+        self.initial_x = x
+        self.initial_y =y
 
         #update keys to move the king,
         # function parameters include platform
