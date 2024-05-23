@@ -265,7 +265,23 @@ while run:
     score_text = score_font.render(f"Diamonds: {king.score}", False, 'white')
     window.blit(score_text, (550, 110))
 
+    if door.open and king.rect.colliderect(door.rect):
+        game_won = True
 
+    if game_won:
+        congrats_text = score_font.render("Congratulations! You won!", False, 'white')
+        window.blit(congrats_text, (150, 300))
+        pygame.display.update()
+        pygame.time.delay(3000)
+        run = False
+    else:
+        pygame.display.flip()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+pygame.quit()
 
 
 
