@@ -33,6 +33,10 @@ fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 pig_idle = pygame.image.load('Idle_pig.png').convert_alpha()
 pig_run = pygame.image.load("Run (34x28).png").convert_alpha()
 diamond_img = pygame.image.load("diamond.png").convert_alpha()
+
+close= pygame.image.load("closed_door.png").convert_alpha()
+opening= pygame.image.load("opening_door.png").convert_alpha()
+
 #3arosetna el amora
 
 
@@ -158,6 +162,31 @@ class Diamond(pygame.sprite.Sprite):
 
 king= Player(100,320,)
 
+#we are doing a class for the door
+# so it opens when the player collects all 5 diamonds in the platform
+class Door(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image_closed = close
+        self.image_open = opening
+        self.image = self.image_closed
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.open = False
+
+    def update(self, player):
+        if player.score == 5:
+            self.image = self.image_open
+            self.open = True
+        else:
+            self.image = self.image_closed
+            self.open = False
+
+
+
+
+
+
 
 class Pig(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -177,7 +206,7 @@ class Pig(pygame.sprite.Sprite):
 
 
 pig = Pig(200,490,60,60)
-
+door = Door(700, 440)
 
 diamond= Diamond(100,200,20,20)
 
@@ -195,6 +224,7 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(king)
 all_sprites.add(pig)
 all_sprites.add(*platforms)
+all_sprites.add(door)
 
 # Creating the diamonds for the king to catch
 diamonds = pygame.sprite.Group()
@@ -224,6 +254,7 @@ while run:
     # Draw all sprites
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
+    door.update(king)
 
 
     # Refresh display
