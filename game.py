@@ -160,7 +160,7 @@ class Diamond(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
 
-king= Player(100,320,)
+king= Player(100,320)
 
 #we are doing a class for the door
 # so it opens when the player collects all 5 diamonds in the platform
@@ -181,11 +181,6 @@ class Door(pygame.sprite.Sprite):
         else:
             self.image = self.image_closed
             self.open = False
-
-
-
-
-
 
 
 class Pig(pygame.sprite.Sprite):
@@ -248,13 +243,13 @@ while run:
 
     # Update sprites
     all_sprites.update(platforms,diamonds)
-
+    door.update(king)
 
 
     # Draw all sprites
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
-    door.update(king)
+
 
 
     # Refresh display
