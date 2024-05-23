@@ -129,6 +129,13 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = platform.rect.bottom
                     self.vel_y = 0
 
+        # to keep the king within the floor boundry of the game
+        if self.rect.y >= ground:
+            self.rect.y = ground
+            self.vel_y = 0
+            self.on_ground = True
+            self.falling = False
+
         # Jump
         if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
             self.vel_y = jump_strength
