@@ -184,11 +184,8 @@ class Pig(pygame.sprite.Sprite):
             self.direction *= -1
 
 
+pig = Pig(200,510,50,50)
 
-
-
-pig_width = 50  # Adjust the width of each frame if necessary
-pig_height = 50
 
 diamond= Diamond(100,200)
 
@@ -215,7 +212,6 @@ diamonds.add(Diamond(600, 500)) # on floor
 diamonds.add(Diamond(600, 240))
 diamonds.add(Diamond(200, 500))# on floor
 all_sprites.add(*diamonds)
-Pig = Pig(200, 510, 100, 100)
 
 #main game loop
 
