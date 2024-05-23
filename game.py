@@ -35,8 +35,8 @@ pig_run = pygame.image.load("Run (34x28).png").convert_alpha()
 diamond_img = pygame.image.load("diamond.png").convert_alpha()
 close= pygame.image.load("closed_door.png").convert_alpha()
 opening= pygame.image.load("opening_door.png").convert_alpha()
-heart= pygame.image.load("heart.png").convert_alpha()
-
+heart_original= pygame.image.load("heart.png").convert_alpha()
+heart=pygame.transform.scale(heart_original, (50, 40))
 
 #3arosetna el amora
 
@@ -271,7 +271,7 @@ while run:
 
     # Draw all sprites
     all_sprites.draw(window)
-    pygame.draw.rect(window, (255,255,255), king.rect, 1)
+    #pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
 #when the king rect collides wsith the pig rect
     # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
@@ -286,18 +286,18 @@ while run:
 
         if king.lives <= 0:
             game_over_caption = score_font.render("Game Over!", False, 'red')
-            window.blit(game_over_caption, (300, 300))
+            window.blit(game_over_caption, (300, 200))
             pygame.display.update()
-            pygame.time.delay(5000)
+            pygame.time.delay(2000)
             run = False  # Exit the game loop to end the game
 
         # Draw all sprites
     all_sprites.draw(window)
-    pygame.draw.rect(window, (255, 255, 255), king.rect, 1)
+    #pygame.draw.rect(window, (255, 255, 255), king.rect, 1)
 
     # Draw hearts representing lives
     for i in range(king.lives):
-        window.blit(heart, (10 + i * 40, 10))
+         window.blit(heart, (90 + i * 50, 95))
     # Refresh display
     pygame.display.flip()
 
@@ -306,7 +306,7 @@ while run:
     # platforms.draw(window)
 
     score_text = score_font.render(f"Diamonds: {king.score}", False, 'white')
-    window.blit(score_text, (550, 110))
+    window.blit(score_text, (530, 110))
 
     if door.open and king.rect.colliderect(door.rect):
         game_won = True
