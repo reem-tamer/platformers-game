@@ -27,6 +27,7 @@ background= pygame.image.load("background.png").convert_alpha()
 bar=pygame.image.load("bar.png").convert_alpha()
 run_img = pygame.image.load('Run.png').convert_alpha()
 jump_img = pygame.image.load('Jump.png').convert_alpha()
+jump_size = pygame.transform.scale(jump_img,(60,60))
 idle_img = pygame.image.load('Idle2.png').convert_alpha()
 fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 pig_idle = pygame.image.load('Idle_pig.png').convert_alpha()
@@ -87,7 +88,7 @@ class Player(pygame.sprite.Sprite):
            # relation with past code and uploaded images
             # to change king state when he runs,jumps,falls
         if self.jumping == True:
-            self.image = jump_img
+            self.image = jump_size
         elif self.falling == True:
             self.image = fall_img
         elif self.running == True:
