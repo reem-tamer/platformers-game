@@ -168,25 +168,14 @@ king= Player(100,320,)
 #         self.run= False
 
 class Pig(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, spritesheet, num_frames):
+    def __init__(self, x, y, width, height):
         super().__init__()
-        self.frames = self.load_frames(spritesheet, width, height, num_frames)
-        self.current_frame = 0
-        self.image = self.frames[self.current_frame]
+        self.image = pygame.transform.scale(pig_idle, (width, height))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.direction = 1  # Pig moves right and left
         self.speed = 1.5
-        self.animation_speed = 0.1  # Controls the speed of animation
-        self.frame_index = 0
 
-    def load_frames(self, spritesheet, width, height, num_frames):
-        frames = []
-        for i in range(num_frames):
-            frame = spritesheet.subsurface((i * width, 0, width, height))
-            frame = pygame.transform.scale(frame, (width, height))
-            frames.append(frame)
-        return frames
 
     def update(self, platforms, diamonds):
         self.rect.x += self.direction * self.speed
@@ -194,20 +183,12 @@ class Pig(pygame.sprite.Sprite):
         if self.rect.right >= screen_width - 80 or self.rect.left <= 80:
             self.direction *= -1
 
-        # Update animation frame
-        self.frame_index += self.animation_speed
-        if self.frame_index >= len(self.frames):
-            self.frame_index = 0
-        self.image = self.frames[int(self.frame_index)]
 
 
 
-# Create pig
-pig_width = 100
-pig_height = 100
-num_frames = 6  # Number of frames in the spritesheet
-pig = Pig(200, 510, pig_width, pig_height, pig_run, num_frames)  # Creating a pig instance
 
+pig_width = 50  # Adjust the width of each frame if necessary
+pig_height = 50
 
 diamond= Diamond(100,200)
 
@@ -234,7 +215,7 @@ diamonds.add(Diamond(600, 500)) # on floor
 diamonds.add(Diamond(600, 240))
 diamonds.add(Diamond(200, 500))# on floor
 all_sprites.add(*diamonds)
-
+Pig = Pig(200, 510, 100, 100)
 
 #main game loop
 
@@ -255,7 +236,7 @@ while run:
     # Draw all sprites
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
-
+    pig = Pig(200, 510, 100, 100)
 
     # Refresh display
     pygame.display.flip()
