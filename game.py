@@ -33,7 +33,6 @@ fall_img = pygame.image.load('Fall (78x58).png').convert_alpha()
 pig_idle = pygame.image.load('Idle_pig.png').convert_alpha()
 pig_run = pygame.image.load("Run (34x28).png").convert_alpha()
 diamond_img = pygame.image.load("diamond.png").convert_alpha()
-
 close= pygame.image.load("closed_door.png").convert_alpha()
 opening= pygame.image.load("opening_door.png").convert_alpha()
 
@@ -193,7 +192,7 @@ class Pig(pygame.sprite.Sprite):
         self.speed = 1.5
 
 
-    def update(self, platforms, diamonds):
+    def update(self):
         self.rect.x += self.direction * self.speed
         # Reverse direction if the pig hits the screen edges
         if self.rect.right >= screen_width - 80 or self.rect.left <= 80:
@@ -233,6 +232,7 @@ all_sprites.add(*diamonds)
 #main game loop
 
 clock=pygame.time.Clock()
+game_won =False
 run= True
 
 while run:
@@ -241,8 +241,11 @@ while run:
     window.fill((0,0,0))
     window.blit(background,(0,0))
 
+
     # Update sprites
-    all_sprites.update(platforms,diamonds)
+    # all_sprites.update(platforms,diamonds)
+    pig.update()
+    king.update(platforms,diamonds)
     door.update(king)
 
 
