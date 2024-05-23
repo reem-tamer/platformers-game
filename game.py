@@ -154,6 +154,11 @@ class Player(pygame.sprite.Sprite):
                 self.score += 1
                 diamond.kill()
 
+#reseting the position for the king
+        def reset_position(self):
+            self.rect.topleft = (self.initial_x, self.initial_y)
+            self.velocity = 0
+
 class Diamond(pygame.sprite.Sprite):
     def __init__(self, x, y,width,height):
         super().__init__()
@@ -184,7 +189,8 @@ class Door(pygame.sprite.Sprite):
         else:
             self.image = self.image_closed
             self.open = False
-
+        if self.open and king.rect.colliderect(self.rect):
+            king.kill()
 
 class Pig(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -257,8 +263,23 @@ while run:
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
+    if king.rect.colliderect(pig.rect):
+        king.lives -= 1
+        king.reset_position()
+        if king.lives <= 0:
+            game_over_caption = score_font.render("Game Over!", False, 'red')
+            window.blit(game_over_caption, (300, 300))
+            pygame.display.update()
+            pygame.time.delay(3000)
+            run = False  # Exit the game loop to end the game
 
+        # Draw all sprites
+    all_sprites.draw(window)
+    pygame.draw.rect(window, (255, 255, 255), king.rect, 1)
 
+    # Draw hearts representing lives
+    for i in range(king.lives):
+        window.blit(heart, (10 + i * 40, 10))
     # Refresh display
     pygame.display.flip()
 
