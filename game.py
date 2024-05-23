@@ -147,25 +147,16 @@ class Player(pygame.sprite.Sprite):
                 diamond.kill()
 
 class Diamond(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y,width,height):
         super().__init__()
-        self.image = diamond_img
+        self.image = pygame.transform.scale(diamond_img, (width, height))
+        # self.image = diamond_img
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
 
 king= Player(100,320,)
 
-# class pig (pygame.sprite.Sprite): #the pig moves alone and automatically
-#     def __init__(self, x, y,width,height):
-#         super().__init__()
-#         self.image= pig_run
-#         self.running_image = pygame.transform.scale(pig_run, (width, height))
-#         self.rect= self.running_image.get_rect()
-#         self.rect.topleft = (x, y)
-#         self.direction = 1  #pig moves right and left
-#         self.speed = 1.5
-#         self.run= False
 
 class Pig(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -184,10 +175,10 @@ class Pig(pygame.sprite.Sprite):
             self.direction *= -1
 
 
-pig = Pig(200,510,50,50)
+pig = Pig(200,490,60,60)
 
 
-diamond= Diamond(100,200)
+diamond= Diamond(100,200,20,20)
 
 
 # Create platforms using sprite groups, putting each bar in its position
@@ -206,11 +197,11 @@ all_sprites.add(*platforms)
 
 # Creating the diamonds for the king to catch
 diamonds = pygame.sprite.Group()
-diamonds.add(Diamond(450, 310)) #on bar1
-diamonds.add(Diamond(300, 410))# on bar2
-diamonds.add(Diamond(600, 500)) # on floor
-diamonds.add(Diamond(600, 240))
-diamonds.add(Diamond(200, 500))# on floor
+diamonds.add(Diamond(450, 310,30,30)) #on bar1
+diamonds.add(Diamond(300, 410,30,30))# on bar2
+diamonds.add(Diamond(600, 500,30,30)) # on floor
+diamonds.add(Diamond(600, 240,30,30))
+diamonds.add(Diamond(200, 500,30,30))# on floor
 all_sprites.add(*diamonds)
 
 #main game loop
@@ -232,7 +223,7 @@ while run:
     # Draw all sprites
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
-    pig = Pig(200, 510, 100, 100)
+
 
     # Refresh display
     pygame.display.flip()
