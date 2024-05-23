@@ -159,7 +159,7 @@ class Diamond(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
 
-king= Player(100,320)
+king= Player(400,110)
 
 #we are doing a class for the door
 # so it opens when the player collects all 5 diamonds in the platform
@@ -200,7 +200,7 @@ class Pig(pygame.sprite.Sprite):
 
 
 pig = Pig(200,490,60,60)
-door = Door(700, 440)
+door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
 
@@ -268,15 +268,17 @@ while run:
     if door.open and king.rect.colliderect(door.rect):
         game_won = True
 
-    if game_won:
-        congrats_text = score_font.render("Congratulations! You won!", False, 'white')
-        window.blit(congrats_text, (150, 300))
+
+    if game_won == True:
+        winning_caption = score_font.render("Congratulations! You escaped the pig!", False, 'green')
+        window.blit(winning_caption, (120, 300))
         pygame.display.update()
-        pygame.time.delay(3000)
+        pygame.time.delay(5000) #gives the player the chance to read the massege
         run = False
+
     else:
         pygame.display.flip()
-
+    # to exit the game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -292,14 +294,8 @@ pygame.quit()
 
 
 
-   # to exit the game
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
 
-    pygame.display.update()
-pygame.quit()
 
 
 
