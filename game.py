@@ -37,6 +37,7 @@ close= pygame.image.load("closed_door.png").convert_alpha()
 opening= pygame.image.load("opening_door.png").convert_alpha()
 heart= pygame.image.load("heart.png").convert_alpha()
 
+
 #3arosetna el amora
 
 
@@ -145,16 +146,16 @@ class Player(pygame.sprite.Sprite):
 
             # floor boundary so king doesnt fall
 
-        if self.rect.y >= ground:
-            self.rect.y = ground
-            self.vel_y = 0
-            self.on_ground = True
-            self.falling = False
-            if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
-                self.vel_y = jump_strength
-                self.jumping = True
-            else:
-                self.jumping = False
+        # if self.rect.y >= ground:
+        #     self.rect.y = ground
+        #     self.vel_y = 0
+        #     self.on_ground = True
+        #     self.falling = False
+        #     if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
+        #         self.vel_y = jump_strength
+        #         self.jumping = True
+        #     else:
+        #         self.jumping = False
     # collision with diamonds
         for diamond in diamonds:
             if self.rect.colliderect(diamond.rect):
@@ -162,9 +163,10 @@ class Player(pygame.sprite.Sprite):
                 diamond.kill()
 
 #reseting the position for the king
-        def reset_position(self):
-            self.rect.topleft = (self.initial_x, self.initial_y)
-            self.velocity = 0
+        #this function returnd the king rect to the starting position and  gives it velocity zero
+    def reset_position(self):
+        self.rect.topleft = (self.initial_x, self.initial_y)
+        self.velocity_y = 0
 
 class Diamond(pygame.sprite.Sprite):
     def __init__(self, x, y,width,height):
@@ -198,6 +200,7 @@ class Door(pygame.sprite.Sprite):
             self.open = False
         if self.open and king.rect.colliderect(self.rect):
             king.kill()
+
 
 class Pig(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -270,14 +273,22 @@ while run:
     all_sprites.draw(window)
     pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
+#when the king rect collides wsith the pig rect
+    # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
+    # the game is over
     if king.rect.colliderect(pig.rect):
         king.lives -= 1
         king.reset_position()
+        lost_life_caption = score_font.render("Oops! you hit the pig", False, 'red')
+        window.blit(lost_life_caption, (250, 300))
+        pygame.display.update()
+        pygame.time.delay(1000)
+
         if king.lives <= 0:
             game_over_caption = score_font.render("Game Over!", False, 'red')
             window.blit(game_over_caption, (300, 300))
             pygame.display.update()
-            pygame.time.delay(3000)
+            pygame.time.delay(5000)
             run = False  # Exit the game loop to end the game
 
         # Draw all sprites
