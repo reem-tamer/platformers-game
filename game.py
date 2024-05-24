@@ -24,6 +24,7 @@ score_font= pygame.font.Font('Pixeltype.ttf',50)
 
 #setting the images
 background= pygame.image.load("background.png").convert_alpha()
+background2 = pygame.image.load("bg2.jpeg").convert_alpha()
 bar=pygame.image.load("bar.png").convert_alpha()
 run_img = pygame.image.load('Run.png').convert_alpha()
 jump_img = pygame.image.load('Jump.png').convert_alpha()
@@ -253,7 +254,65 @@ diamonds.add(Diamond(200, 500,30,30))# on floor
 all_sprites.add(*diamonds)
 
 # creating level 1
-def se
+def level1():
+    platforms.empty() #emptying the past setup to ensure a new one for the next level
+    diamonds.empty()
+    all_sprites.empty()
+#then re adding our new elements in the level
+    platforms.add(Platform(400, 340, 'bar.png'))
+    platforms.add(Platform(250, 440, 'bar.png'))
+    platforms.add(Platform(100, 350, 'bar.png'))
+    platforms.add(Platform(570, 270, 'bar.png'))
+    platforms.add(Platform(400, 180, 'bar.png'))
+
+    diamonds.add(Diamond(450, 310, 30, 30))
+    diamonds.add(Diamond(300, 410, 30, 30))
+    diamonds.add(Diamond(600, 500, 30, 30))
+    diamonds.add(Diamond(600, 240, 30, 30))
+    diamonds.add(Diamond(200, 500, 30, 30))
+
+    pig.rect.topleft = (200, 490)
+    door.rect.topleft = (110, 290)
+#re adding the sprite groups on the screen
+    all_sprites.add(king)
+    all_sprites.add(pig)
+    all_sprites.add(door)
+    all_sprites.add(*platforms)
+    all_sprites.add(*diamonds)
+
+
+
+def level2():
+    platforms.empty()
+    diamonds.empty()
+    all_sprites.empty()
+
+    platforms.add(Platform(150, 300, 'bar.png'))
+    platforms.add(Platform(200, 400, 'bar.png'))
+    platforms.add(Platform(300, 500, 'bar.png'))
+    platforms.add(Platform(400, 250, 'bar.png'))
+    platforms.add(Platform(500, 250, 'bar.png'))
+
+    diamonds.add(Diamond(150, 260, 30, 30))
+    diamonds.add(Diamond(250, 360, 30, 30))
+    diamonds.add(Diamond(350, 460, 30, 30))
+    diamonds.add(Diamond(450, 160, 30, 30))
+    diamonds.add(Diamond(550, 60, 30, 30))
+
+    pig.rect.topleft = (200, 450)
+    pig2.rect.topleft = (300, 200)
+    pig3.rect.topleft = (600, 400)
+    pig4.rect.topleft=(400,200)
+    door.rect.topleft = (610, 290)
+
+    all_sprites.add(king)
+    all_sprites.add(pig)
+    all_sprites.add(pig2)
+    all_sprites.add(pig3)
+    all_sprites.add(pig4)
+    all_sprites.add(door)
+    all_sprites.add(*platforms)
+    all_sprites.add(*diamonds)
 
 
 
@@ -268,29 +327,48 @@ def se
 clock=pygame.time.Clock()
 game_won =False
 run= True
-
+level=1
+level1() # we called the level1 function outside the while loop
+# because by default we want to start at level1
 while run:
 
     clock.tick(FPS)
     window.fill((0,0,0))
-    window.blit(background,(0,0))
+    if level==1:  # if its level1 call update function for pig1 and bg1
+        window.blit(background,(0,0))
+        pig.update()
+    if level==2: #if its level2 call update bg2 and call all the pigs including level1 pig
+        window.blit(background2,(0,0))
+        pig.update()
+        pig2.update()
+        pig3.update()
+        pig4.update()
 
+#outside the if we called the king and door because they are common between 2 levels
 
-    # Update sprites
-    # all_sprites.update(platforms,diamonds)
-    pig.update()
-    king.update(platforms,diamonds)
+    king.update(platforms, diamonds)
     door.update(king)
-
-
-    # Draw all sprites
     all_sprites.draw(window)
-    #pygame.draw.rect(window, (255,255,255), king.rect, 1)
+
+
+
+    # # Update sprites
+    # # all_sprites.update(platforms,diamonds)
+    # pig.update()
+    # king.update(platforms,diamonds)
+    # door.update(king)
+    #
+    #
+    # # Draw all sprites
+    # all_sprites.draw(window)
+    # #pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
 #when the king rect collides wsith the pig rect
     # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
     # the game is over
-    if king.rect.colliderect(pig.rect):
+    if king.rect.colliderect(pig.rect) or (level == 2 and (king.rect.colliderect(pig2.rect) or king.rect.colliderect(pig3.rect))):
+
+
         king.lives -= 1
         king.reset_position()
         lost_life_caption = score_font.render("Oops! you hit the pig", False, 'red')
@@ -298,7 +376,7 @@ while run:
         pygame.display.update()
         pygame.time.delay(1000)
 
-        if king.lives <= 0:
+        if king.lives == 0:
             game_over_caption = score_font.render("Game Over!", False, 'red')
             window.blit(game_over_caption, (300, 200))
             pygame.display.update()
@@ -311,26 +389,34 @@ while run:
 
     # Draw hearts representing lives
     for i in range(king.lives):
-         window.blit(heart, (90 + i * 50, 95))
-    # Refresh display
-    pygame.display.flip()
+         window.blit(heart, (90 + i * 50, 95)) #this equation to draw 3 hearts next to each other
 
-    #"blitting" the bars but instead of using blit we use draw
-    # since it is a function related to sprite groups
-    # platforms.draw(window)
+
 
     score_text = score_font.render(f"Diamonds: {king.score}", False, 'white')
     window.blit(score_text, (530, 110))
 
     if door.open and king.rect.colliderect(door.rect):
-        game_won = True
+        if level==1: # if the level is already lecvel1 we change it to level 2
+            winning_caption = score_font.render("leveled up!", False, 'green')
+            window.blit(winning_caption, (150, 350))
+            level=2
+            king.score=0 #return the score to zero and lives 3
+            king.lives=3
+            king.reset_position() #reset the king position using king reset function
+            level2() # call level2 function
+        else:
+            game_won = True # else the player is already in level2 and the whole game is won
+
 
 
     if game_won == True:
         winning_caption = score_font.render("Congratulations! You escaped the pig!", False, 'green')
         window.blit(winning_caption, (120, 300))
+
+
         pygame.display.update()
-        pygame.time.delay(5000) #gives the player the chance to read the massege
+        pygame.time.delay(2000) #gives the player the chance to read the massege
         run = False
 
     else:
