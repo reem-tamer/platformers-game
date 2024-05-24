@@ -253,7 +253,7 @@ diamonds.add(Diamond(200, 500,30,30))# on floor
 all_sprites.add(*diamonds)
 
 # creating level 1
-def s
+def se
 
 
 
