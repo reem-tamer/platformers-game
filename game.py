@@ -220,6 +220,9 @@ class Pig(pygame.sprite.Sprite):
 
 
 pig = Pig(200,490,60,60)
+pig2 = Pig(100,400,60,60)
+pig3 = Pig(300,200,60,60)
+pig4 = Pig(400,200,60,60)
 door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
@@ -248,6 +251,17 @@ diamonds.add(Diamond(600, 500,30,30)) # on floor
 diamonds.add(Diamond(600, 240,30,30))
 diamonds.add(Diamond(200, 500,30,30))# on floor
 all_sprites.add(*diamonds)
+
+# creating level 1
+def s
+
+
+
+
+
+
+
+
 
 #main game loop
 
