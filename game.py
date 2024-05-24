@@ -197,7 +197,7 @@ class Pig(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.direction = 1  # Pig moves right and left
-        self.speed = 1.5
+        self.speed = 1
         self.left_boundary= left_boundary
         self.right_boundary= right_boundary
 
@@ -213,8 +213,8 @@ class Pig(pygame.sprite.Sprite):
             self.direction *= -1
 
 
-pig = Pig(200,490,60,60,300,120) #fly
-pig2 = Pig(100,400,60,60,680,120)
+pig = Pig(200,490,60,60,680,120) #fly
+pig2 = Pig(100,400,60,60,330,120)
 pig3 = Pig(300,200,60,60,680,120)
 door = Door(110, 290)
 
@@ -264,12 +264,12 @@ def level1():
     diamonds.add(Diamond(200, 500, 30, 30))
 
     door.rect.topleft = (110, 290)
-    pig2.rect.topleft = (200, 490)
+    pig.rect.topleft = (200, 490)
 
 #re adding the sprite groups on the screen
     all_sprites.add(door)
     all_sprites.add(king)
-    all_sprites.add(pig2)
+    all_sprites.add(pig)
 
     all_sprites.add(*platforms)
     all_sprites.add(*diamonds)
@@ -284,7 +284,7 @@ def level2():
     platforms.add(Platform(130, 430, 'bar.png')) #bar2
     platforms.add(Platform(260, 430, 'bar.png'))#bar3
     platforms.add(Platform(530, 300, 'bar.png'))#bar1
-    platforms.add(Platform(300, 360, 'bar.png'))#bar4
+    platforms.add(Platform(300, 340, 'bar.png'))#bar4
 
 
     diamonds.add(Diamond(470, 480, 30, 30))
@@ -295,8 +295,8 @@ def level2():
 
 
     door.rect.topleft = (610, 490)
-    pig.rect.topleft = (130,367)
-    pig2.rect.topleft = (130, 485)
+    pig.rect.topleft = (130,485)
+    pig2.rect.topleft = (130, 367)
     pig3.rect.topleft = (300, 485)
 
     all_sprites.add(door)
@@ -349,7 +349,7 @@ while run:
 #when the king rect collides wsith the pig rect
     # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
     # the game is over
-    if king.rect.colliderect(pig2.rect) or (level == 2 and (king.rect.colliderect(pig.rect) or king.rect.colliderect(pig3.rect))):
+    if king.rect.colliderect(pig.rect) or (level == 2 and (king.rect.colliderect(pig2.rect) or king.rect.colliderect(pig3.rect))):
 
 
         king.lives -= 1
