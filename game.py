@@ -215,7 +215,7 @@ class Pig(pygame.sprite.Sprite):
 
 pig = Pig(200,490,60,60,680,120)
 pig2 = Pig(100,400,60,60,680,120)
-pig3 = Pig(300,200,60,60,300,680)
+pig3 = Pig(300,200,60,60,680,300)
 door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
@@ -263,12 +263,14 @@ def level1():
     diamonds.add(Diamond(600, 240, 30, 30))
     diamonds.add(Diamond(200, 500, 30, 30))
 
-    pig.rect.topleft = (200, 490)
     door.rect.topleft = (110, 290)
+    pig.rect.topleft = (200, 490)
+
 #re adding the sprite groups on the screen
+    all_sprites.add(door)
     all_sprites.add(king)
     all_sprites.add(pig)
-    all_sprites.add(door)
+
     all_sprites.add(*platforms)
     all_sprites.add(*diamonds)
 
@@ -291,16 +293,18 @@ def level2():
     diamonds.add(Diamond(300, 400, 30, 30))
     diamonds.add(Diamond(550, 270, 30, 30))
 
+
+    door.rect.topleft = (610, 490)
     pig.rect.topleft = (130,367)
     pig2.rect.topleft = (130, 485)
     pig3.rect.topleft = (300, 485)
-    door.rect.topleft = (610, 490)
 
+    all_sprites.add(door)
     all_sprites.add(king)
     all_sprites.add(pig)
     all_sprites.add(pig2)
     all_sprites.add(pig3)
-    all_sprites.add(door)
+
     all_sprites.add(*platforms)
     all_sprites.add(*diamonds)
 
