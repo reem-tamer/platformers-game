@@ -213,9 +213,9 @@ class Pig(pygame.sprite.Sprite):
             self.direction *= -1
 
 
-pig = Pig(200,490,60,60,680,120)
+pig = Pig(200,490,60,60,300,120) #fly
 pig2 = Pig(100,400,60,60,680,120)
-pig3 = Pig(300,200,60,60,680,300)
+pig3 = Pig(300,200,60,60,680,120)
 door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
@@ -264,12 +264,12 @@ def level1():
     diamonds.add(Diamond(200, 500, 30, 30))
 
     door.rect.topleft = (110, 290)
-    pig.rect.topleft = (200, 490)
+    pig2.rect.topleft = (200, 490)
 
 #re adding the sprite groups on the screen
     all_sprites.add(door)
     all_sprites.add(king)
-    all_sprites.add(pig)
+    all_sprites.add(pig2)
 
     all_sprites.add(*platforms)
     all_sprites.add(*diamonds)
@@ -349,7 +349,7 @@ while run:
 #when the king rect collides wsith the pig rect
     # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
     # the game is over
-    if king.rect.colliderect(pig.rect) or (level == 2 and (king.rect.colliderect(pig2.rect) or king.rect.colliderect(pig3.rect))):
+    if king.rect.colliderect(pig2.rect) or (level == 2 and (king.rect.colliderect(pig.rect) or king.rect.colliderect(pig3.rect))):
 
 
         king.lives -= 1
