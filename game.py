@@ -147,16 +147,7 @@ class Player(pygame.sprite.Sprite):
 
             # floor boundary so king doesnt fall
 
-        # if self.rect.y >= ground:
-        #     self.rect.y = ground
-        #     self.vel_y = 0
-        #     self.on_ground = True
-        #     self.falling = False
-        #     if keys[pygame.K_SPACE] and self.on_ground and self.rect.y + king_velocity >= 140:
-        #         self.vel_y = jump_strength
-        #         self.jumping = True
-        #     else:
-        #         self.jumping = False
+
     # collision with diamonds
         for diamond in diamonds:
             if self.rect.colliderect(diamond.rect):
@@ -216,14 +207,13 @@ class Pig(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.direction * self.speed
         # Reverse direction if the pig hits the screen edges
-        if self.rect.right >= screen_width - 80 or self.rect.left <= 80:
+        if self.rect.right >= screen_width - 120 or self.rect.left <= 120:
             self.direction *= -1
 
 
 pig = Pig(200,490,60,60)
 pig2 = Pig(100,400,60,60)
 pig3 = Pig(300,200,60,60)
-pig4 = Pig(400,200,60,60)
 door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
@@ -289,27 +279,25 @@ def level2():
 
     platforms.add(Platform(130, 430, 'bar.png')) #bar2
     platforms.add(Platform(260, 430, 'bar.png'))#bar3
-    platforms.add(Platform(500, 300, 'bar.png'))#bar1
-    platforms.add(Platform(350, 360, 'bar.png'))#bar4
+    platforms.add(Platform(530, 300, 'bar.png'))#bar1
+    platforms.add(Platform(300, 360, 'bar.png'))#bar4
 
 
-    diamonds.add(Diamond(150, 260, 30, 30))
-    diamonds.add(Diamond(250, 360, 30, 30))
-    diamonds.add(Diamond(350, 460, 30, 30))
-    diamonds.add(Diamond(450, 160, 30, 30))
-    diamonds.add(Diamond(550, 60, 30, 30))
+    diamonds.add(Diamond(470, 480, 30, 30))
+    diamonds.add(Diamond(370, 330, 30, 30))
+    diamonds.add(Diamond(195, 400, 30, 30))
+    diamonds.add(Diamond(300, 400, 30, 30))
+    diamonds.add(Diamond(550, 270, 30, 30))
 
-    pig.rect.topleft = (200, 450)
-    pig2.rect.topleft = (300, 200)
-    pig3.rect.topleft = (600, 400)
-    pig4.rect.topleft=(400,200)
-    door.rect.topleft = (610, 290)
+    pig.rect.topleft = (130,367)
+    pig2.rect.topleft = (130, 452)
+    pig3.rect.topleft = (300, 452)
+    door.rect.topleft = (610, 456)
 
     all_sprites.add(king)
     all_sprites.add(pig)
     all_sprites.add(pig2)
     all_sprites.add(pig3)
-    all_sprites.add(pig4)
     all_sprites.add(door)
     all_sprites.add(*platforms)
     all_sprites.add(*diamonds)
@@ -342,7 +330,7 @@ while run:
         pig.update()
         pig2.update()
         pig3.update()
-        pig4.update()
+
 
 #outside the if we called the king and door because they are common between 2 levels
 
