@@ -287,11 +287,11 @@ def level2():
     diamonds.empty()
     all_sprites.empty()
 
-    platforms.add(Platform(150, 300, 'bar.png'))
-    platforms.add(Platform(200, 400, 'bar.png'))
-    platforms.add(Platform(300, 500, 'bar.png'))
-    platforms.add(Platform(400, 250, 'bar.png'))
-    platforms.add(Platform(500, 250, 'bar.png'))
+    platforms.add(Platform(130, 430, 'bar.png')) #bar2
+    platforms.add(Platform(260, 430, 'bar.png'))#bar3
+    platforms.add(Platform(500, 300, 'bar.png'))#bar1
+    platforms.add(Platform(350, 360, 'bar.png'))#bar4
+
 
     diamonds.add(Diamond(150, 260, 30, 30))
     diamonds.add(Diamond(250, 360, 30, 30))
