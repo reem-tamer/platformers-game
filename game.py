@@ -3,8 +3,6 @@ import random
 import os
 import csv
 
-#hii noraaaaaaaa
-#hello this is aly
 
 from sys import exit
 pygame.init()
@@ -12,7 +10,7 @@ pygame.display.set_caption("Kings and Pigs")
 screen_width= 800
 screen_hight= 640
 window= pygame.display.set_mode((screen_width,screen_hight))
-#hello
+
 FPS= 60
 king_velocity= 5
 gravity= 0.6
@@ -24,7 +22,7 @@ score_font= pygame.font.Font('Pixeltype.ttf',50)
 
 #setting the images
 background= pygame.image.load("background.png").convert_alpha()
-background2 = pygame.image.load("bg2.jpeg").convert_alpha()
+background2 = pygame.image.load("background2.jpg").convert_alpha()
 bar=pygame.image.load("bar.png").convert_alpha()
 run_img = pygame.image.load('Run.png').convert_alpha()
 jump_img = pygame.image.load('Jump.png').convert_alpha()
@@ -38,8 +36,6 @@ close= pygame.image.load("closed_door.png").convert_alpha()
 opening= pygame.image.load("opening_door.png").convert_alpha()
 heart_original= pygame.image.load("heart.png").convert_alpha()
 heart=pygame.transform.scale(heart_original, (50, 40))
-
-#3arosetna el amora
 
 
 #create platform bars main class
@@ -290,9 +286,9 @@ def level2():
     diamonds.add(Diamond(550, 270, 30, 30))
 
     pig.rect.topleft = (130,367)
-    pig2.rect.topleft = (130, 452)
-    pig3.rect.topleft = (300, 452)
-    door.rect.topleft = (610, 456)
+    pig2.rect.topleft = (130, 485)
+    pig3.rect.topleft = (300, 485)
+    door.rect.topleft = (610, 490)
 
     all_sprites.add(king)
     all_sprites.add(pig)
@@ -339,17 +335,6 @@ while run:
     all_sprites.draw(window)
 
 
-
-    # # Update sprites
-    # # all_sprites.update(platforms,diamonds)
-    # pig.update()
-    # king.update(platforms,diamonds)
-    # door.update(king)
-    #
-    #
-    # # Draw all sprites
-    # all_sprites.draw(window)
-    # #pygame.draw.rect(window, (255,255,255), king.rect, 1)
 
 #when the king rect collides wsith the pig rect
     # the lives decrease by one and the king goes back to initial position if it hits the pig 3 times
