@@ -191,25 +191,31 @@ class Door(pygame.sprite.Sprite):
 
 
 class Pig(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height,right_boundary,left_boundary):
         super().__init__()
         self.image = pygame.transform.scale(pig_idle, (width, height))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.direction = 1  # Pig moves right and left
         self.speed = 1.5
+        self.left_boundary= left_boundary
+        self.right_boundary= right_boundary
+
+
 
 
     def update(self):
         self.rect.x += self.direction * self.speed
-        # Reverse direction if the pig hits the screen edges
-        if self.rect.right >= screen_width - 120 or self.rect.left <= 120:
+        # # Reverse direction if the pig hits the screen edges
+        # if self.rect.right >= screen_width - 120 or self.rect.left <= 120:
+        #     self.direction *= -1
+        if self.rect.right >= self.right_boundary or self.rect.left <= self.left_boundary:
             self.direction *= -1
 
 
-pig = Pig(200,490,60,60)
-pig2 = Pig(100,400,60,60)
-pig3 = Pig(300,200,60,60)
+pig = Pig(200,490,60,60,680,120)
+pig2 = Pig(100,400,60,60,680,120)
+pig3 = Pig(300,200,60,60,300,680)
 door = Door(110, 290)
 
 diamond= Diamond(100,200,20,20)
