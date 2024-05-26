@@ -435,7 +435,10 @@ def main_game():
         if door.open and king.rect.colliderect(door.rect):
             if level == 1:  # if the level is already lecvel1 we change it to level 2
                 winning_caption = score_font.render("leveled up!", False, 'green')
-                window.blit(winning_caption, (150, 350))
+                window.blit(winning_caption, (350, 300))
+                pygame.display.update()
+                pygame.time.delay(5000)
+
                 level = 2
                 king.score = 0  # return the score to zero and lives 3
                 king.lives = 3
