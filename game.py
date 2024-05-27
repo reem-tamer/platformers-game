@@ -420,10 +420,11 @@ def main_game():
                 pygame.display.update()
                 pygame.time.delay(2000)
                 run = False  # Exit the game loop to end the game
-
-            # Draw all sprites
+        # if king.rect.colliderect(pig.rect.top):
+        #     pig.kill()
+        #Draw all sprites
         all_sprites.draw(window)
-        # pygame.draw.rect(window, (255, 255, 255), king.rect, 1)
+        pygame.draw.rect(window, (255, 255, 255), pig.rect, 1)
 
         # Draw hearts representing lives
         for i in range(king.lives):
