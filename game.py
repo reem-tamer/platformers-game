@@ -424,7 +424,7 @@ def main_game():
         #     pig.kill()
         #Draw all sprites
         all_sprites.draw(window)
-        pygame.draw.rect(window, (255, 255, 255), pig.rect, 1)
+        #pygame.draw.rect(window, (255, 255, 255), pig.rect, 1)
 
         # Draw hearts representing lives
         for i in range(king.lives):
